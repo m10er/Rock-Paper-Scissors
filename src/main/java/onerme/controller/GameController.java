@@ -16,21 +16,24 @@ public class GameController {
     Language language;
 
     public void start() {
-
         language = new Language();
         language.getLanguage();
 
         boolean playAgain = true;
+        String playerName = null; // Oyuncu ismini saklamak için değişken
 
         while (playAgain) {
             System.out.println(messages.getString("chooseMode"));
-            int mode = getValidatedIntInput( 1, 2, messages.getString("invalidMode"));
+            int mode = getValidatedIntInput(1, 2, messages.getString("invalidMode"));
 
             Player player1, player2;
 
             if (mode == 1) {
-                System.out.println(messages.getString("enterName"));
-                String playerName = getValidatedStringInput();
+                // Eğer oyuncu adı henüz alınmadıysa sor
+                if (playerName == null) {
+                    System.out.println(messages.getString("enterName"));
+                    playerName = getValidatedStringInput(); // Oyuncu adını bir kez al ve sakla
+                }
                 player1 = new HumanPlayer(playerName, new RockPaperScissorsFactory());
                 player2 = new ComputerPlayer("Computer", new RockPaperScissorsFactory());
             } else {
@@ -46,8 +49,8 @@ public class GameController {
             System.out.println("\n--- " + messages.getString("roundNumber") + " ---");
             gameEngine.play();
 
-            resultEvaluator= new ResultEvaluator();
-            resultEvaluator.evaluate(player1,player2,gameEngine);
+            resultEvaluator = new ResultEvaluator();
+            resultEvaluator.evaluate(player1, player2, gameEngine);
 
             playAgain = getValidatedYesNoInput(messages.getString("playAgain"), messages);
         }

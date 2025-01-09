@@ -8,7 +8,7 @@ public class GameEngine {
     private int drawCount;
     private final Player player1;
     private final Player player2;
-    private final int totalRounds;
+    public final int totalRounds;
     private final ResourceBundle messages;
     private int player1Score = 0;
     private int player2Score = 0;
