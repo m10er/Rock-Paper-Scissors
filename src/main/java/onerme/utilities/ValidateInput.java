@@ -4,6 +4,8 @@ import java.util.InputMismatchException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+import static onerme.service.Language.messages;
+
 public class ValidateInput {
     public  static Scanner scanner = new Scanner(System.in);
 
@@ -24,13 +26,18 @@ public class ValidateInput {
         }
     }
 
-    public static String getValidatedStringInput(String errorMessage) {
+    public static String getValidatedStringInput() {
         while (true) {
             String input = scanner.nextLine().trim();
+
             if (!input.isEmpty() && input.matches("[a-zA-Z ]+")) {
-                return input;
+                if (input.length() <= 30) {
+                    return input;
+                } else {
+                    System.out.println(messages.getString("maxLengthError"));
+                }
             } else {
-                System.out.println(errorMessage);
+                System.out.println(messages.getString("invalidName"));
             }
         }
     }

@@ -30,7 +30,7 @@ public class GameController {
 
             if (mode == 1) {
                 System.out.println(messages.getString("enterName"));
-                String playerName = getValidatedStringInput(messages.getString("invalidName"));
+                String playerName = getValidatedStringInput();
                 player1 = new HumanPlayer(playerName, new RockPaperScissorsFactory());
                 player2 = new ComputerPlayer("Computer", new RockPaperScissorsFactory());
             } else {
