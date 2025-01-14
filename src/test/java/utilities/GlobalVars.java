@@ -1,5 +1,7 @@
 package utilities;
 
+import java.security.SecureRandom;
+
 public class GlobalVars {
 
     protected final int minNameLength=1;
@@ -13,4 +15,10 @@ public class GlobalVars {
     protected final String move1 ="Rock";
     protected final String move2 ="Paper";
     protected final String move3 ="Scissors";
+    protected final String modePlayerAgainComputers ="1";
+    protected final String modeComputerAgainComputers="2";
+    protected final String languageEnglish="1";
+    protected final String languageDeutsch="2";
+    protected final String gameEnd="2";
+    protected final String gameNew="1";
 }
