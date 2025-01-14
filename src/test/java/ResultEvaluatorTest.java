@@ -55,7 +55,6 @@ class ResultEvaluatorTest extends ReusableMethods {
 
         String formattedMessage = MessageFormat.format(Language.messages.getString("winnerGame"), player1.getName());
 
-        // Test mesajlarının doğru şekilde konsol çıktısında olup olmadığını kontrol et
         assertTrue(consoleOutput.contains(formattedMessage), "Player 1 win message should be displayed.");
     }
 

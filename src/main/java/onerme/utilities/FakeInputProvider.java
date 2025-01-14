@@ -1,20 +1,22 @@
 package onerme.utilities;
 
-import java.util.Queue;
-import java.util.LinkedList;
+import java.util.Arrays;
+import java.util.List;
+
 
 public class FakeInputProvider implements InputProvider {
-    private final Queue<String> inputs;
+    private final List<String> inputs;
+    private int currentIndex = 0;
 
     public FakeInputProvider(String... inputs) {
-        this.inputs = new LinkedList<>();
-        for (String input : inputs) {
-            this.inputs.add(input);
-        }
+        this.inputs = Arrays.asList(inputs);
     }
 
     @Override
     public String getInput() {
-        return inputs.poll();
+        if (currentIndex >= inputs.size()) {
+            return inputs.get(inputs.size() - 1);
+        }
+        return inputs.get(currentIndex++);
     }
 }
