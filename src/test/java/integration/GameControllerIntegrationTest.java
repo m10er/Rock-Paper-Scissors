@@ -17,6 +17,7 @@ class GameControllerIntegrationTest extends ReusableMethods {
     private ByteArrayOutputStream outputStream;
     String[] arr = genarateRandomMoveArray();
     String name = generateRandomString(minNameLength,maxNameLenght);
+
     @Test
     void testGameControllerIntegration_HumanVsComputer() {
         FakeInputProvider inputProvider = new FakeInputProvider(
@@ -32,7 +33,6 @@ class GameControllerIntegrationTest extends ReusableMethods {
         System.setOut(new PrintStream(outputStream));
 
         GameController gameController = new GameController(inputProvider);
-
         gameController.start();
 
         String consoleOutput = outputStream.toString();
@@ -41,6 +41,7 @@ class GameControllerIntegrationTest extends ReusableMethods {
         assertTrue(consoleOutput.contains(messages.getString("finalScore")), "Final score should be displayed.");
         assertTrue(consoleOutput.contains(messages.getString("playAgain")), "playAgain should be displayed.");
 
+        System.setOut(System.out);
     }
 
     @Test
@@ -58,7 +59,6 @@ class GameControllerIntegrationTest extends ReusableMethods {
         System.setOut(new PrintStream(outputStream));
 
         GameController gameController = new GameController(inputProvider);
-
         gameController.start();
 
         String consoleOutput = outputStream.toString();
@@ -67,20 +67,21 @@ class GameControllerIntegrationTest extends ReusableMethods {
         assertTrue(consoleOutput.contains(messages.getString("finalScore")), "Final score should be displayed.");
         assertTrue(consoleOutput.contains(messages.getString("playAgain")), "playAgain should be displayed.");
 
+        System.setOut(System.out);
     }
 
     @Test
     void testGameControllerIntegration_ComputerVsComputer() {
-        String languageChoice=generateRandomInt(1,2)+"";
+        String languageChoice = generateRandomInt(1,2) + "";
         FakeInputProvider inputProvider = new FakeInputProvider(
                 languageChoice,
                 modeComputerAgainComputers,
                 gameEnd
         );
 
-        if (languageChoice.equals("1")){
+        if (languageChoice.equals("1")) {
             messages = ResourceBundle.getBundle("messages", Locale.ENGLISH);
-        }else{
+        } else {
             messages = ResourceBundle.getBundle("messages", Locale.GERMAN);
         }
 
@@ -88,7 +89,6 @@ class GameControllerIntegrationTest extends ReusableMethods {
         System.setOut(new PrintStream(outputStream));
 
         GameController gameController = new GameController(inputProvider);
-
         gameController.start();
 
         String consoleOutput = outputStream.toString();
@@ -96,6 +96,7 @@ class GameControllerIntegrationTest extends ReusableMethods {
         assertTrue(consoleOutput.contains(messages.getString("finalScore")), "Final score should be displayed.");
         assertTrue(consoleOutput.contains(messages.getString("playAgain")), "playAgain should be displayed.");
 
+        System.setOut(System.out);
     }
 
     @Test
@@ -113,7 +114,6 @@ class GameControllerIntegrationTest extends ReusableMethods {
         System.setOut(new PrintStream(outputStream));
 
         GameController gameController = new GameController(inputProvider);
-
         gameController.start();
 
         String consoleOutput = outputStream.toString();
@@ -122,8 +122,6 @@ class GameControllerIntegrationTest extends ReusableMethods {
         assertTrue(consoleOutput.contains(messages.getString("playAgain")), "playAgain should be displayed.");
         assertTrue(consoleOutput.contains(messages.getString("chooseMode")), "chooseMode should be displayed.");
 
+        System.setOut(System.out);
     }
-
-
-
 }

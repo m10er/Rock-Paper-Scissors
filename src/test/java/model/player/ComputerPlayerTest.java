@@ -13,23 +13,23 @@ import utilities.SimpleMoveFactory;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ComputerPlayerTest extends ReusableMethods {
-    String randomName = generateRandomString(minNameLength,maxNameLenght);
 
-    @Test
-    public void testGetName() {
+    String randomName = generateRandomString(minNameLength, maxNameLenght);
 
-
+    private ComputerPlayer createComputerPlayer() {
         MoveFactory factory = new SimpleMoveFactory();
-        ComputerPlayer player = new ComputerPlayer(randomName, factory);
-
-        assertEquals(randomName, player.getName(), "Player name should be '" + randomName + "'.");
+        return new ComputerPlayer(randomName, factory);
     }
 
+    @Test
+    void getName_ShouldReturnPlayerName() {
+        ComputerPlayer player = createComputerPlayer();
+        assertEquals(randomName, player.getName(), "Player name should match the expected random name.");
+    }
 
     @Test
-    public void testMakeMove() {
-        MoveFactory factory = new SimpleMoveFactory();
-        ComputerPlayer player = new ComputerPlayer(randomName, factory);
+    void makeMove_ShouldReturnValidMove() {
+        ComputerPlayer player = createComputerPlayer();
 
         Move move = player.makeMove();
 
@@ -38,5 +38,27 @@ public class ComputerPlayerTest extends ReusableMethods {
                 move instanceof Rock || move instanceof Paper || move instanceof Scissors,
                 "The move should be one of Rock, Paper, or Scissors."
         );
+    }
+
+    @Test
+    void makeMove_ShouldProduceAllPossibleMovesOverTime() {
+        ComputerPlayer player = createComputerPlayer();
+
+        boolean rockFound = false;
+        boolean paperFound = false;
+        boolean scissorsFound = false;
+
+        for (int i = 0; i < 100; i++) { // Test 100 iterations for randomness.
+            Move move = player.makeMove();
+            if (move instanceof Rock) rockFound = true;
+            if (move instanceof Paper) paperFound = true;
+            if (move instanceof Scissors) scissorsFound = true;
+
+            if (rockFound && paperFound && scissorsFound) break; // All types found, exit early.
+        }
+
+        assertTrue(rockFound, "Rock move should be produced over multiple iterations.");
+        assertTrue(paperFound, "Paper move should be produced over multiple iterations.");
+        assertTrue(scissorsFound, "Scissors move should be produced over multiple iterations.");
     }
 }

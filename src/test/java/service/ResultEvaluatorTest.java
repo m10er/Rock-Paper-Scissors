@@ -12,7 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utilities.ConfigReader;
 import utilities.ReusableMethods;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.text.MessageFormat;
@@ -31,6 +30,12 @@ class ResultEvaluatorTest extends ReusableMethods {
     String randomName=generateRandomString(minNameLength,maxNameLenght);
     int randomRoundCount= generateRandomInt(minRound+3,maxRound);
 
+    private void setGameScores(GameEngine gameEngine, int player1Score, int player2Score, int drawCount) {
+        gameEngine.setPlayer1Score(player1Score);
+        gameEngine.setPlayer2Score(player2Score);
+        gameEngine.setDrawCount(drawCount);
+    }
+
     @BeforeEach
     void setUp() {
         System.setOut(new PrintStream(outputStream));
@@ -47,9 +52,7 @@ class ResultEvaluatorTest extends ReusableMethods {
 
     @Test
     void testEvaluate_Player1Wins() {
-        gameEngine.setPlayer1Score(randomRoundCount+1);
-        gameEngine.setPlayer2Score(randomRoundCount);
-        gameEngine.setDrawCount(1);
+        setGameScores(gameEngine,randomRoundCount+1, randomRoundCount,  1);
 
         resultEvaluator.evaluate(player1, player2, gameEngine);
 
@@ -63,9 +66,7 @@ class ResultEvaluatorTest extends ReusableMethods {
 
     @Test
     void testEvaluate_Draw() {
-        gameEngine.setPlayer1Score(minRound);
-        gameEngine.setPlayer2Score(minRound);
-        gameEngine.setDrawCount(minRound+1);
+        setGameScores(gameEngine,minRound, minRound,  minRound+1);
 
         resultEvaluator.evaluate(player1, player2, gameEngine);
 
@@ -81,14 +82,9 @@ class ResultEvaluatorTest extends ReusableMethods {
         player1 = new ComputerPlayer("Computer1", new RockPaperScissorsFactory());
         player2 = new ComputerPlayer("Computer2", new RockPaperScissorsFactory());
 
-
         gameEngine = new GameEngine(player1, player2, 3, Language.messages);
 
-
-        gameEngine.setPlayer1Score(minRound+1);
-        gameEngine.setPlayer2Score(minRound+1);
-        gameEngine.setDrawCount(minRound);
-
+        setGameScores(gameEngine,minRound+1, minRound+1,  minRound);
 
         resultEvaluator.evaluate(player1, player2, gameEngine);
 
@@ -98,16 +94,14 @@ class ResultEvaluatorTest extends ReusableMethods {
 
     @Test
     void testEvaluate_ComputerBeatsPlayer() {
-        gameEngine.setPlayer1Score(minRound);
-        gameEngine.setPlayer2Score(minRound+1);
-        gameEngine.setDrawCount(minRound);
+        setGameScores(gameEngine,minRound, minRound+1,  minRound);
 
         resultEvaluator.evaluate(player1, player2, gameEngine);
 
         String formattedMessage = MessageFormat.format(Language.messages.getString("winnerGame"), player2.getName());
 
-
         String consoleOutput = outputStream.toString();
         assertTrue(consoleOutput.contains(formattedMessage), "Computer win message should be displayed.");
     }
+
 }

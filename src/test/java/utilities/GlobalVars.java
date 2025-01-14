@@ -1,6 +1,5 @@
 package utilities;
 
-import java.security.SecureRandom;
 
 public class GlobalVars {
 

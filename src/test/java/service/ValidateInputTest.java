@@ -5,14 +5,13 @@ import onerme.utilities.FakeInputProvider;
 import onerme.utilities.ValidateInput;
 import org.junit.jupiter.api.Test;
 import utilities.ReusableMethods;
-
-
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ValidateInputTest extends ReusableMethods {
+
 
     @Test
     void testGetValidatedIntInput_ValidInput() {
@@ -93,4 +92,20 @@ class ValidateInputTest extends ReusableMethods {
         boolean result = validateInput.getValidatedYesNoInput("Do you want to continue?");
         assertTrue(result);
     }
+    @Test
+    void testGetValidatedIntInput_BoundaryValues() {
+        FakeInputProvider inputProvider = new FakeInputProvider(
+                String.valueOf(minChooseCount),
+                String.valueOf(maxChooseCount)
+        );
+        ValidateInput validateInput = new ValidateInput(inputProvider);
+
+        int resultMin = validateInput.getValidatedIntInput(minChooseCount, maxChooseCount, "Geçersiz giriş");
+        assertEquals(minChooseCount, resultMin);
+
+        int resultMax = validateInput.getValidatedIntInput(minChooseCount, maxChooseCount, "Geçersiz giriş");
+        assertEquals(maxChooseCount, resultMax);
+    }
+
+
 }

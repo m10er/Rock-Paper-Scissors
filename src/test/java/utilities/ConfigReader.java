@@ -23,10 +23,10 @@ public class ConfigReader {
     }
 
     public static void main(String[] args) {
-        // Example usage
+
         ConfigReader configReader = new ConfigReader("src/main/resources/messages_en.properties");
         System.out.println(configReader.getProperty("welcome"));
         System.out.println(configReader.getProperty("invalidName"));
-        System.out.println(configReader.getProperty("nonexistentKey")); // Will print "Key not found: nonexistentKey"
+        System.out.println(configReader.getProperty("nonexistentKey"));
     }
 }

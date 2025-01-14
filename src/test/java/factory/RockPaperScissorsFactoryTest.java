@@ -14,45 +14,48 @@ class RockPaperScissorsFactoryTest {
     private final RockPaperScissorsFactory factory = new RockPaperScissorsFactory();
 
     @Test
-    void testCreateMove_Rock() {
-        Move move = factory.createMove("rock");
-        assertNotNull(move);
-        assertTrue(move instanceof Rock, "Expected a Rock instance.");
+    void createMove_ShouldReturnRockInstance_WhenInputIsRock() {
+        assertMoveInstance("rock", Rock.class);
     }
 
     @Test
-    void testCreateMove_Paper() {
-        Move move = factory.createMove("paper");
-        assertNotNull(move);
-        assertTrue(move instanceof Paper, "Expected a Paper instance.");
+    void createMove_ShouldReturnPaperInstance_WhenInputIsPaper() {
+        assertMoveInstance("paper", Paper.class);
     }
 
     @Test
-    void testCreateMove_Scissors() {
-        Move move = factory.createMove("scissors");
-        assertNotNull(move);
-        assertTrue(move instanceof Scissors, "Expected a Scissors instance.");
+    void createMove_ShouldReturnScissorsInstance_WhenInputIsScissors() {
+        assertMoveInstance("scissors", Scissors.class);
     }
 
     @Test
-    void testCreateMove_InvalidMoveType() {
+    void createMove_ShouldThrowException_WhenInputIsInvalid() {
         Exception exception = assertThrows(IllegalArgumentException.class,
                 () -> factory.createMove("invalid"));
-        assertEquals("Invalid move type: invalid", exception.getMessage());
+        assertEquals("Invalid move type: invalid", exception.getMessage(),
+                "Expected exception message for invalid move type.");
     }
 
     @Test
-    void testCreateMove_CaseInsensitive() {
-        Move rockMove = factory.createMove("ROCK");
-        assertNotNull(rockMove);
-        assertTrue(rockMove instanceof Rock);
+    void createMove_ShouldBeCaseInsensitive() {
+        assertMoveInstance("ROCK", Rock.class);
+        assertMoveInstance("PaPeR", Paper.class);
+        assertMoveInstance("sCiSsOrS", Scissors.class);
+    }
 
-        Move paperMove = factory.createMove("PaPeR");
-        assertNotNull(paperMove);
-        assertTrue(paperMove instanceof Paper);
+    @Test
+    void createMove_ShouldThrowException_WhenInputIsNullOrEmpty() {
 
-        Move scissorsMove = factory.createMove("sCiSsOrS");
-        assertNotNull(scissorsMove);
-        assertTrue(scissorsMove instanceof Scissors);
+        assertThrows(IllegalArgumentException.class,
+                () -> factory.createMove(""), "Empty string input should throw exception.");
+        assertThrows(IllegalArgumentException.class,
+                () -> factory.createMove("   "), "Input with spaces should throw exception.");
+    }
+
+    private void assertMoveInstance(String input, Class<?> expectedClass) {
+        Move move = factory.createMove(input);
+        assertNotNull(move, "Move should not be null for input: " + input);
+        assertTrue(expectedClass.isInstance(move),
+                "Expected a " + expectedClass.getSimpleName() + " instance for input: " + input);
     }
 }

@@ -16,61 +16,50 @@ import java.util.ResourceBundle;
 import java.util.Locale;
 
 public class GameControllerTest extends ReusableMethods {
-    String language;
-    String gameChose;
-    String name;
-    String roundCount;
-    String moveChose1;
-    String endGame;
 
-    @Test
-    void testStart_PlayHumanVsComputer() {
-        String random=generateRandomInt(1,2)+"";
-        language = random;
-        gameChose = modePlayerAgainComputers;
-        name = generateRandomString(minNameLength, maxNameLenght);
-        roundCount = "1";
-        moveChose1 = generateRandomInt(1, 3) + "";
-        endGame = gameEnd;
-
-        FakeInputProvider inputProvider = new FakeInputProvider(
-                language, gameChose, name, roundCount, moveChose1, endGame
-        );
-
-        if (random.equals("1")){
+    private void setLocale(String languageChoice) {
+        if ("1".equals(languageChoice)) {
             Language.messages = ResourceBundle.getBundle("messages", Locale.ENGLISH);
             assertEquals(Locale.ENGLISH, Language.messages.getLocale());
-        }
-        else {
+        } else {
             Language.messages = ResourceBundle.getBundle("messages", Locale.GERMAN);
             assertEquals(Locale.GERMAN, Language.messages.getLocale());
         }
-
-        GameController gameController = new GameController(inputProvider);
-
-        gameController.start();
-
-        if (random.equals("1")){
-            assertEquals(Locale.ENGLISH, Language.messages.getLocale());
-        }else {
-            assertEquals(Locale.GERMAN, Language.messages.getLocale());
-        }
-
     }
 
     @Test
-    void testStart_PlayComputerVsComputer() {
+    void start_ShouldInitializeWithCorrectLanguage_WhenPlayingHumanVsComputer() {
+        String languageChoice = generateRandomInt(1, 2) + "";
+        String gameChoice = modePlayerAgainComputers;
+        String playerName = generateRandomString(minNameLength, maxNameLenght);
+        String roundCount = "1";
+        String moveChoice = generateRandomInt(1, 3) + "";
+        String endGame = gameEnd;
+
         FakeInputProvider inputProvider = new FakeInputProvider(
-                languageEnglish,
-                "3",
+                languageChoice, gameChoice, playerName, roundCount, moveChoice, endGame
+        );
+
+        setLocale(languageChoice);
+
+        GameController gameController = new GameController(inputProvider);
+        gameController.start();
+
+        setLocale(languageChoice);
+    }
+
+    @Test
+    void start_ShouldInitializeWithCorrectLanguage_WhenPlayingComputerVsComputer() {
+        String languageChoice = languageEnglish;
+        FakeInputProvider inputProvider = new FakeInputProvider(
+                languageChoice,
+                modeComputerAgainComputers,
                 "10",
                 "2"
         );
 
         Language.messages = ResourceBundle.getBundle("messages", Locale.ENGLISH);
-
         GameController gameController = new GameController(inputProvider);
-
         gameController.start();
 
         assertEquals(Locale.ENGLISH, Language.messages.getLocale());
@@ -84,4 +73,5 @@ public class GameControllerTest extends ReusableMethods {
         ResultEvaluator resultEvaluator = new ResultEvaluator();
         resultEvaluator.evaluate(player1, player2, gameEngine);
     }
+
 }

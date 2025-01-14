@@ -19,7 +19,6 @@ public class ReusableMethods extends GlobalVars {
         return sb.toString();
     }
 
-    // Generate a random integer between min and max (inclusive)
     public int generateRandomInt(int min, int max) {
         if (min > max) {
             throw new IllegalArgumentException("The minimum value cannot be greater than the maximum value.");

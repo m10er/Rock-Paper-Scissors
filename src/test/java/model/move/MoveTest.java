@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MoveTest extends ReusableMethods {
 
     @Test
-    public void testRockBeatsScissors() {
+    public void rock_ShouldBeatScissors() {
         Move rock = new Rock();
         Move scissors = new Scissors();
 
@@ -21,7 +21,7 @@ public class MoveTest extends ReusableMethods {
     }
 
     @Test
-    public void testPaperBeatsRock() {
+    public void paper_ShouldBeatRock() {
         Move paper = new Paper();
         Move rock = new Rock();
 
@@ -30,7 +30,7 @@ public class MoveTest extends ReusableMethods {
     }
 
     @Test
-    public void testScissorsBeatsPaper() {
+    public void scissors_ShouldBeatPaper() {
         Move scissors = new Scissors();
         Move paper = new Paper();
 
@@ -39,13 +39,26 @@ public class MoveTest extends ReusableMethods {
     }
 
     @Test
-    public void testMoveNames() {
+    public void move_ShouldNotBeatItself() {
         Move rock = new Rock();
         Move paper = new Paper();
         Move scissors = new Scissors();
 
-        assertEquals(move1, rock.getName(), "Rock's name should be 'Rock'.");
-        assertEquals(move2, paper.getName(), "Paper's name should be 'Paper'.");
-        assertEquals(move3, scissors.getName(), "Scissors' name should be 'Scissors'.");
+        assertFalse(rock.beats(rock), "Rock should not beat itself.");
+        assertFalse(paper.beats(paper), "Paper should not beat itself.");
+        assertFalse(scissors.beats(scissors), "Scissors should not beat itself.");
     }
+
+    @Test
+    public void moveNames_ShouldBeCorrect() {
+        Move rock = new Rock();
+        Move paper = new Paper();
+        Move scissors = new Scissors();
+
+        assertEquals("Rock", rock.getName(), "Rock's name should be 'Rock'.");
+        assertEquals("Paper", paper.getName(), "Paper's name should be 'Paper'.");
+        assertEquals("Scissors", scissors.getName(), "Scissors' name should be 'Scissors'.");
+    }
+
+
 }
