@@ -18,7 +18,6 @@ class GameEngineIntegrationTest extends ReusableMethods {
 
     private ResourceBundle messages;
     String demoName=generateRandomString(minNameLength,maxNameLenght);
-    int totalRound=generateRandomInt(minRound,maxRound);
 
     @BeforeEach
     void setUp() {
@@ -27,18 +26,13 @@ class GameEngineIntegrationTest extends ReusableMethods {
 
     @Test
     void testGameEngineWithHumanAndComputer() {
-        String[] moveList= new String[totalRound];
-        int x=0;
-        while (totalRound>x){
-            moveList[x]=(generateRandomInt(1,3)+"");
-            x++;
-        }
-        FakeInputProvider fakeInputProvider = new FakeInputProvider(moveList);
+        String[] arr= genarateRandomMoveArray();
+        FakeInputProvider fakeInputProvider = new FakeInputProvider(arr);
 
         Player humanPlayer = new HumanPlayer(demoName, new RockPaperScissorsFactory(),fakeInputProvider);
         Player computerPlayer = new ComputerPlayer("Computer", new RockPaperScissorsFactory());
 
-        int totalRounds = totalRound;
+        int totalRounds = arr.length;
         GameEngine gameEngine = new GameEngine(humanPlayer, computerPlayer, totalRounds, messages);
 
         gameEngine.play();
@@ -55,7 +49,7 @@ class GameEngineIntegrationTest extends ReusableMethods {
         Player computer1 = new ComputerPlayer("Computer 1", new RockPaperScissorsFactory());
         Player computer2 = new ComputerPlayer("Computer 2", new RockPaperScissorsFactory());
 
-        int totalRounds = 5;
+        int totalRounds = generateRandomInt(minRound,maxRound);
         GameEngine gameEngine = new GameEngine(computer1, computer2, totalRounds, messages);
 
         gameEngine.play();
@@ -64,6 +58,6 @@ class GameEngineIntegrationTest extends ReusableMethods {
         int player2Score = gameEngine.getPlayer2Score();
         int drawCount = gameEngine.getDrawCount();
 
-        assertEquals(5, player1Score + player2Score + drawCount, "Total rounds should equal the sum of player scores and draws.");
+        assertEquals(totalRounds, player1Score + player2Score + drawCount, "Total rounds should equal the sum of player scores and draws.");
     }
 }

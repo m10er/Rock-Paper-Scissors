@@ -26,4 +26,15 @@ public class ReusableMethods extends GlobalVars {
         }
         return random.nextInt(max - min + 1) + min;
     }
+
+    public String[] genarateRandomMoveArray(){
+        int totalRound=generateRandomInt(minRound,maxRound);
+        String[] moveList= new String[totalRound];
+        int x=0;
+        while (totalRound>x){
+            moveList[x]=(generateRandomInt(1,3)+"");
+            x++;
+        }
+        return moveList;
+    }
 }
