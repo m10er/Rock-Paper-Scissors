@@ -41,8 +41,6 @@ public class GameEngine {
                 drawCount++;
                 System.out.println(messages.getString("tieRound"));
             }
-
-            System.out.println(messages.getString("currentScore"));
             System.out.println(player1.getName() + ": " + player1Score);
             System.out.println(player2.getName() + ": " + player2Score);
         }

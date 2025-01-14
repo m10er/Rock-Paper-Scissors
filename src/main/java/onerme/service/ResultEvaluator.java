@@ -4,13 +4,12 @@ package onerme.service;
 import onerme.model.player.ComputerPlayer;
 import onerme.model.player.HumanPlayer;
 import onerme.model.player.Player;
-import java.util.Locale;
 
 import static onerme.service.Language.messages;
 
 
 public class ResultEvaluator {
-    Locale locale = messages.getLocale();
+
     public void evaluate(Player player1, Player player2, GameEngine gameEngine) {
 
         System.out.println(messages.getString("finalScore"));

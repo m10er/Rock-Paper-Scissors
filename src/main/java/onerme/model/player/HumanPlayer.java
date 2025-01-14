@@ -4,6 +4,8 @@ import onerme.factory.abstractFactory.MoveFactory;
 import onerme.model.move.Move;
 import onerme.utilities.InputProvider;
 
+import static onerme.service.Language.messages;
+
 public class HumanPlayer implements Player {
     private final String name;
     private final MoveFactory moveFactory;
@@ -22,12 +24,13 @@ public class HumanPlayer implements Player {
 
     @Override
     public Move makeMove() {
-        System.out.println("\nChoose your move: 1) Rock  2) Paper  3) Scissors");
+        System.out.println(messages.getString("rockPapierScissors"));
+
         String userInput = "";
         Move move = null;
 
         while (move == null) {
-            System.out.print("Enter your choice (1, 2, or 3): ");
+            System.out.print(messages.getString("playerMove"));
             userInput = inputProvider.getInput();
             switch (userInput) {
                 case "1":
@@ -43,8 +46,6 @@ public class HumanPlayer implements Player {
                     System.out.println("Invalid input. Please enter 1, 2, or 3.");
             }
         }
-
-        System.out.println(name + " chose: " + move.toString());
 
         return move;
     }
