@@ -2,18 +2,17 @@ package onerme.model.player;
 
 import onerme.factory.abstractFactory.MoveFactory;
 import onerme.model.move.Move;
-
-import java.util.Scanner;
+import onerme.utilities.InputProvider;
 
 public class HumanPlayer implements Player {
     private final String name;
     private final MoveFactory moveFactory;
-    private final Scanner scanner;
+    private InputProvider inputProvider;
 
-    public HumanPlayer(String name, MoveFactory moveFactory) {
+    public HumanPlayer(String name, MoveFactory moveFactory, InputProvider inputProvider) {
         this.name = name;
         this.moveFactory = moveFactory;
-        this.scanner = new Scanner(System.in);
+        this.inputProvider=inputProvider;
     }
 
     @Override
@@ -29,7 +28,7 @@ public class HumanPlayer implements Player {
 
         while (move == null) {
             System.out.print("Enter your choice (1, 2, or 3): ");
-            userInput = scanner.nextLine().trim();
+            userInput = inputProvider.getInput();
             switch (userInput) {
                 case "1":
                     move = moveFactory.createMove("rock");

@@ -1,58 +1,59 @@
 package onerme.utilities;
 
-import java.util.InputMismatchException;
-import java.util.ResourceBundle;
-import java.util.Scanner;
-
-import static onerme.service.Language.messages;
+import onerme.service.Language;
 
 public class ValidateInput {
-    public  static Scanner scanner = new Scanner(System.in);
+    private InputProvider provider;
 
-    public static int getValidatedIntInput(int min, int max, String errorMessage) {
+    public ValidateInput(InputProvider provider) {
+        this.provider = provider;
+    }
+
+    public int getValidatedIntInput(int min, int max, String errorMessage) {
         while (true) {
             try {
-                int input = scanner.nextInt();
-                scanner.nextLine();
+                String value = provider.getInput();
+                int input = Integer.parseInt(value);
                 if (input >= min && input <= max) {
                     return input;
                 } else {
                     System.out.println(errorMessage);
                 }
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 System.out.println(errorMessage);
-                scanner.nextLine();
             }
         }
     }
 
-    public static String getValidatedStringInput() {
+    public String getValidatedStringInput() {
+
         while (true) {
-            String input = scanner.nextLine().trim();
+            String input = provider.getInput();
 
             if (!input.isEmpty() && input.matches("[a-zA-Z ]+")) {
                 if (input.length() <= 30) {
                     return input;
                 } else {
-                    System.out.println(messages.getString("maxLengthError"));
+                    System.out.println(Language.messages.getString("maxLengthError"));
                 }
             } else {
-                System.out.println(messages.getString("invalidName"));
+                System.out.println(Language.messages.getString("invalidName"));
             }
         }
     }
 
-    public static boolean getValidatedYesNoInput(String promptMessage, ResourceBundle messages) {
+    public boolean getValidatedYesNoInput(String promptMessage) {
+
         while (true) {
             System.out.println(promptMessage);
-            String response = scanner.nextLine().trim();
+            String response = provider.getInput();
 
             if (response.equals("1")) {
                 return true;
             } else if (response.equals("2")) {
                 return false;
             } else {
-                System.out.println(messages.getString("invalidInput"));
+                System.out.println(Language.messages.getString("invalidInput"));
             }
         }
     }

@@ -1,10 +1,13 @@
 package onerme;
 
 import onerme.controller.GameController;
+import onerme.utilities.DefaultInputProvider;
+import onerme.utilities.InputProvider;
 
 public class Main {
     public static void main(String[] args) {
-        GameController game = new GameController();
+        InputProvider provider =new DefaultInputProvider();
+        GameController game = new GameController(provider);
         game.start();
 
         }

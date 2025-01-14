@@ -8,7 +8,7 @@ public class GameEngine {
     private int drawCount;
     private final Player player1;
     private final Player player2;
-    public final int totalRounds;
+    private final int totalRounds;
     private final ResourceBundle messages;
     private int player1Score = 0;
     private int player2Score = 0;
@@ -58,5 +58,17 @@ public class GameEngine {
 
     public int getDrawCount() {
         return drawCount;
+    }
+
+    public void setPlayer1Score(int score) {
+        this.player1Score = score;
+    }
+
+    public void setPlayer2Score(int score) {
+        this.player2Score = score;
+    }
+
+    public void setDrawCount(int count) {
+        this.drawCount = count;
     }
 }

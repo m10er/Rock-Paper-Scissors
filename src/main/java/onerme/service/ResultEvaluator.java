@@ -1,15 +1,17 @@
+
 package onerme.service;
 
 import onerme.model.player.ComputerPlayer;
 import onerme.model.player.HumanPlayer;
 import onerme.model.player.Player;
 import java.util.Locale;
-import java.util.ResourceBundle;
+
+import static onerme.service.Language.messages;
+
 
 public class ResultEvaluator {
-    Locale locale = Language.messages.getLocale();
+    Locale locale = messages.getLocale();
     public void evaluate(Player player1, Player player2, GameEngine gameEngine) {
-        ResourceBundle messages = ResourceBundle.getBundle("messages", locale);
 
         System.out.println(messages.getString("finalScore"));
         System.out.println(player1.getName() + ": " + gameEngine.getPlayer1Score());
@@ -19,7 +21,6 @@ public class ResultEvaluator {
         int player1Score = gameEngine.getPlayer1Score();
         int player2Score = gameEngine.getPlayer2Score();
 
-        // Skora göre özel mesajlar
         if (player1Score > player2Score) {
             System.out.println(messages.getString("winnerGame").replace("{0}", player1.getName()));
 

@@ -7,34 +7,42 @@ import onerme.model.player.Player;
 import onerme.service.GameEngine;
 import onerme.service.Language;
 import onerme.service.ResultEvaluator;
+import onerme.utilities.InputProvider;
+import onerme.utilities.ValidateInput;
+
 import static onerme.service.Language.messages;
-import static onerme.utilities.ValidateInput.*;
 
 public class GameController {
 
     ResultEvaluator resultEvaluator;
     Language language;
+    InputProvider inputProvider;
+    ValidateInput validateInput;
+
+    public GameController(InputProvider inputProvider) {
+        this.inputProvider = inputProvider;
+        this.validateInput= new ValidateInput(inputProvider);
+    }
 
     public void start() {
-        language = new Language();
-        language.getLanguage();
+        language = new Language(inputProvider);
+       language.getLanguage();
 
         boolean playAgain = true;
-        String playerName = null; // Oyuncu ismini saklamak için değişken
+        String playerName = null;
 
         while (playAgain) {
             System.out.println(messages.getString("chooseMode"));
-            int mode = getValidatedIntInput(1, 2, messages.getString("invalidMode"));
+            int mode = validateInput.getValidatedIntInput(1, 2, messages.getString("invalidMode"));
 
             Player player1, player2;
 
             if (mode == 1) {
-                // Eğer oyuncu adı henüz alınmadıysa sor
                 if (playerName == null) {
                     System.out.println(messages.getString("enterName"));
-                    playerName = getValidatedStringInput(); // Oyuncu adını bir kez al ve sakla
+                    playerName = validateInput.getValidatedStringInput();
                 }
-                player1 = new HumanPlayer(playerName, new RockPaperScissorsFactory());
+                player1 = new HumanPlayer(playerName, new RockPaperScissorsFactory(),inputProvider);
                 player2 = new ComputerPlayer("Computer", new RockPaperScissorsFactory());
             } else {
                 player1 = new ComputerPlayer("Computer 1", new RockPaperScissorsFactory());
@@ -42,7 +50,7 @@ public class GameController {
             }
 
             System.out.println(messages.getString("enterRounds"));
-            int totalRounds = getValidatedIntInput(1, 20, messages.getString("invalidRounds"));
+            int totalRounds = validateInput.getValidatedIntInput(1, 20, messages.getString("invalidRounds"));
 
             GameEngine gameEngine = new GameEngine(player1, player2, totalRounds, messages);
 
@@ -52,7 +60,7 @@ public class GameController {
             resultEvaluator = new ResultEvaluator();
             resultEvaluator.evaluate(player1, player2, gameEngine);
 
-            playAgain = getValidatedYesNoInput(messages.getString("playAgain"), messages);
+            playAgain = validateInput.getValidatedYesNoInput(messages.getString("playAgain"));
         }
     }
 
