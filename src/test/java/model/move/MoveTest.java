@@ -1,3 +1,4 @@
+package model.move;
 
 import onerme.model.move.Move;
 import onerme.model.move.Paper;

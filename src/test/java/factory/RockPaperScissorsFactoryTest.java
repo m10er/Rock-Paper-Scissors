@@ -1,3 +1,4 @@
+package factory;
 
 import onerme.factory.concreteFactory.RockPaperScissorsFactory;
 import onerme.model.move.Move;

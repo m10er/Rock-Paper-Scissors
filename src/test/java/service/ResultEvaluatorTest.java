@@ -1,3 +1,5 @@
+package service;
+
 import onerme.factory.concreteFactory.RockPaperScissorsFactory;
 import onerme.model.player.ComputerPlayer;
 import onerme.model.player.HumanPlayer;

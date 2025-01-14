@@ -1,4 +1,4 @@
-
+package model.player;
 
 import onerme.factory.abstractFactory.MoveFactory;
 import onerme.model.move.Move;

@@ -21,7 +21,6 @@
             <version>5.10.0</version>
             <scope>test</scope>
         </dependency>
-        <!-- Allure JUnit 5 Bağımlılığı (JUnit kullanıyorsanız) -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit5</artifactId>
