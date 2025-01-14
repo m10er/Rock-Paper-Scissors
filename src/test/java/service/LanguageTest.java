@@ -13,7 +13,7 @@ public class LanguageTest extends ReusableMethods {
 
     @Test
     void testGetLanguage_ValidChoice_English() {
-        FakeInputProvider inputProvider = new FakeInputProvider("1");
+        FakeInputProvider inputProvider = new FakeInputProvider(languageEnglish);
         Language language = new Language(inputProvider);
 
         Locale locale = language.getLanguage();
@@ -23,7 +23,7 @@ public class LanguageTest extends ReusableMethods {
 
     @Test
     void testGetLanguage_ValidChoice_German() {
-        FakeInputProvider inputProvider = new FakeInputProvider("2");
+        FakeInputProvider inputProvider = new FakeInputProvider(languageDeutsch);
         Language language = new Language(inputProvider);
 
         Locale locale = language.getLanguage();

@@ -1,9 +1,10 @@
-package utilities;
+package service;
 
 import onerme.service.Language;
 import onerme.utilities.FakeInputProvider;
 import onerme.utilities.ValidateInput;
 import org.junit.jupiter.api.Test;
+import utilities.ReusableMethods;
 
 
 import java.util.Locale;

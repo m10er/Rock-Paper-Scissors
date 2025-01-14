@@ -47,8 +47,8 @@ class ResultEvaluatorTest extends ReusableMethods {
 
     @Test
     void testEvaluate_Player1Wins() {
-        gameEngine.setPlayer1Score(randomRoundCount-2);
-        gameEngine.setPlayer2Score(1);
+        gameEngine.setPlayer1Score(randomRoundCount+1);
+        gameEngine.setPlayer2Score(randomRoundCount);
         gameEngine.setDrawCount(1);
 
         resultEvaluator.evaluate(player1, player2, gameEngine);
