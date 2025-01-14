@@ -43,7 +43,7 @@ public class HumanPlayer implements Player {
                     move = moveFactory.createMove("scissors");
                     break;
                 default:
-                    System.out.println("Invalid input. Please enter 1, 2, or 3.");
+                    System.out.println(messages.getString("invalidMode3"));
             }
         }
 
